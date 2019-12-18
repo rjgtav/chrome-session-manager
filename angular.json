@@ -8,25 +8,32 @@
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss",
-          "skipTests": true
+          "skipTests": true,
+          "spec": false
         },
         "@schematics/angular:class": {
-          "skipTests": true
+          "skipTests": true,
+          "spec": false
         },
         "@schematics/angular:directive": {
-          "skipTests": true
+          "skipTests": true,
+          "spec": false
         },
         "@schematics/angular:guard": {
-          "skipTests": true
+          "skipTests": true,
+          "spec": false
         },
         "@schematics/angular:module": {
-          "skipTests": true
+          "skipTests": true,
+          "spec": false
         },
         "@schematics/angular:pipe": {
-          "skipTests": true
+          "skipTests": true,
+          "spec": false
         },
         "@schematics/angular:service": {
-          "skipTests": true
+          "skipTests": true,
+          "spec": false
         }
       },
       "root": "",
@@ -34,17 +41,21 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-builders/custom-webpack:browser",
           "options": {
+            "customWebpackConfig": {
+              "path": "./custom-webpack.config.js"
+            },
             "outputPath": "dist/chrome-session-manager",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": [
+              "src/assets",
               "src/favicon.ico",
-              "src/assets"
+              "src/manifest.json"
             ],
             "styles": [
               "src/styles.scss"

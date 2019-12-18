@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+@import "variables";
+@import "~bootstrap/scss/bootstrap.scss";
+
+html, body {
+    height: 580px;
+    width: 400px;
+    background: var(--light);
+}
+
+.cursor-pointer {
+    cursor: pointer !important;
+}
