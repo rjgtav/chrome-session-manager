@@ -1,13 +1,14 @@
-<nav class="navbar navbar-dark bg-primary text-center mb-3">
-    <h5 class="d-block navbar-brand m-0 w-100">Session Manager</h5>
-</nav>
+<div class="d-flex bg-primary justify-content-end mb-3 p-3 position-relative">
+    <h5 class="mb-0 position-absolute text-white" style="left: 50%; top: 50%; transform: translate(-50%, -50%)">Session Manager</h5>
+    <button class="btn btn-primary" (click)="sessionNew()" title="New Session"><fa-icon [icon]="faPlus"></fa-icon></button>
+</div>
 
 <div class="alert alert-warning" *ngIf="showWarning">
     Due to a chrome quota limitation, this extension is only guaranteed to work for up to <b>~30 sessions</b> and each session should only have <b>~120 tabs</b> at most.
     Please make sure you're not going above those limits in order to prevent any syncing issue.
 </div>
 
-<div class="container">
+<div class="container mb-5 pb-3">
     <h5>Open Sessions ({{ sessionsOpen?.length }})</h5>
     <ng-container *ngFor="let session of sessionsOpen"
                   [ngTemplateOutlet]="templateSession"
@@ -30,18 +31,20 @@
     <div class="card mb-2 shadow-sm" *ngIf="sessionById(id) as session">
         <div class="card-body d-flex p-2">
             <div class="d-flex flex-grow-1" *ngIf="!session.isEditing">
-                <div class="d-flex flex-column flex-grow-1 cursor-pointer" (click)="sessionEdit(session)">
-                    <div>{{ session.name }}&nbsp;<fa-icon class="invisible" [icon]="faPencilAlt"></fa-icon></div>
+                <div class="d-flex flex-column flex-grow-1">
+                    <div>{{ session.name }}</div>
                     <div class="text-muted">{{ session.tabs.length }} Tabs</div>
                 </div>
                 <div class="d-flex align-items-center justify-content-end">
-                    <app-session-list-button [icon]="faExternalLinkAlt" label="Open" class="text-info"
+                    <app-session-list-button [icon]="faPencilAlt" color="warning" title="Rename"
+                                             (click)="sessionEdit(session)"></app-session-list-button>
+                    <app-session-list-button [icon]="faExternalLinkAlt" color="info" title="Open"
                                              (click)="sessionOpen(session)" *ngIf="!session.isOpen"></app-session-list-button>
-                    <app-session-list-button [icon]="faTimes" label="Close" class="text-primary"
+                    <app-session-list-button [icon]="faTimes" color="primary" title="Close"
                                              (click)="sessionClose(session)" *ngIf="session.isOpen && sessionsOpen.length > 1"></app-session-list-button>
-                    <app-session-list-button [icon]="faRandom" label="Switch" class="text-info"
+                    <app-session-list-button [icon]="faRandom" color="info" title="Switch to"
                                              (click)="sessionSwitch(session)" *ngIf="!session.isOpen"></app-session-list-button>
-                    <app-session-list-button [icon]="faTrashAlt" label="Delete" class="text-danger"
+                    <app-session-list-button [icon]="faTrashAlt" color="danger" title="Delete"
                                              (click)="sessionRemove(session)" *ngIf="session.window == undefined"></app-session-list-button>
                 </div>
             </div>
@@ -50,9 +53,9 @@
                     <input class="form-control" type="text" [ngModel]="session.name" #inputElement>
                 </div>
                 <div class="d-flex flex-grow-1 align-items-center justify-content-end">
-                    <app-session-list-button [icon]="faBan" label="Cancel" class="text-body"
+                    <app-session-list-button [icon]="faBan" color="primary" title="Cancel"
                                              (click)="sessionEditCancel(session)"></app-session-list-button>
-                    <app-session-list-button [icon]="faCheck" label="Save" class="text-primary"
+                    <app-session-list-button [icon]="faCheck" color="primary" title="Save"
                                              (click)="sessionEditFinish(session, inputElement.value)"></app-session-list-button>
                 </div>
             </div>

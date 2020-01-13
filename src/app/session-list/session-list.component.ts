@@ -8,7 +8,7 @@ import {
     faDonate,
     faExternalLinkAlt,
     faInfoCircle,
-    faPencilAlt,
+    faPencilAlt, faPlus,
     faRandom,
     faSave,
     faTimes,
@@ -31,6 +31,7 @@ export class SessionListComponent implements OnInit, OnDestroy {
     readonly faPencilAlt = faPencilAlt;
     readonly faExternalLinkAlt = faExternalLinkAlt;
     readonly faInfoCircle = faInfoCircle;
+    readonly faPlus = faPlus;
     readonly faRandom = faRandom;
     readonly faTimes = faTimes;
     readonly faTrashAlt = faTrashAlt;
@@ -68,6 +69,7 @@ export class SessionListComponent implements OnInit, OnDestroy {
     sessionEditCancel(session: Session) { session.editCancel(); this.changeDetectorRef.detectChanges(); }
     sessionEditFinish(session: Session, name: string) { this.session.rename(session, name) }
 
+    sessionNew() { this.session.new() }
     sessionOpen(session: Session) { this.session.open(session) }
     sessionRemove(session: Session) { confirm(`Are you sure you want to delete ${ session.name }, with ${ session.tabs.length } tabs?`) && this.session.remove(session) }
     sessionSwitch(session: Session) { this.session.switch(session) }

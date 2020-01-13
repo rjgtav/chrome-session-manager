@@ -7,13 +7,6 @@ const KEY_SESSIONS: string = 'sessions';
 let onWindowCreatedTimeout: any;
 let ports: chrome.runtime.Port[] = [];
 
-// XTODO: remove chrome setting that reopens the last tabs on boot > chrome_settings_overrides
-// XTODO: when resuming a session, need to include the missing tabs
-// XTODO: when adding/removing/modifying sessions (aka onWindowUpdated) I need to also update the corresponding session.tabs otherwise the UI isn't gonna reflect the latest changes
-// XTODO: find a decent bootswatch theme
-// XTODO: hard cap #tabs per session to 100? and hard cap #sessions
-// XTODO: use a socket so the popup is always updated whenever a session is created/deleted/updated/..
-
 async function onSessionChange(id: number, storage: Session$Storage, tabsRemove: boolean = true) {
     console.log('onSessionChange', id, storage);
     let session: Session = Session.byId(id);
@@ -275,6 +268,11 @@ async function sessionClose(id: number) {
     await portBroadcast(MESSAGE.SESSION_LIST_UPDATE);
 }
 
+async function sessionNew() {
+    await new Promise((resolve, reject) => chrome.windows.create({ focused: true, state: 'maximized' }, window => resolve(window)));
+    await portBroadcast(MESSAGE.SESSION_LIST_UPDATE);
+}
+
 async function sessionOpen(id: number) {
     let session = Session.byId(id);
     if (session && !session.isOpen) {
@@ -362,6 +360,7 @@ async function sessionSwitch(id: number) {
             case MESSAGE.SESSION_CLOSE: sendResponse(sessionClose(message.payload)); return true;
             case MESSAGE.SESSION_OPEN: sendResponse(sessionOpen(message.payload)); return true;
             case MESSAGE.SESSION_LIST: sendResponse(Session.values().sort(Session.compare)); return true;
+            case MESSAGE.SESSION_NEW: sendResponse(sessionNew()); return true;
             case MESSAGE.SESSION_REMOVE: sendResponse(sessionRemove(message.payload)); return true;
             case MESSAGE.SESSION_RENAME: sendResponse(sessionRename(message.payload.id, message.payload.name)); return true;
             case MESSAGE.SESSION_SWITCH: sendResponse(sessionSwitch(message.payload)); return true;

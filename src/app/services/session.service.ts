@@ -20,6 +20,7 @@ export class SessionService {
 
     close(session: Session) { return this.background.send(MESSAGE.SESSION_CLOSE, session.id) }
     open(session: Session) { return this.background.send(MESSAGE.SESSION_OPEN, session.id) }
+    new() { return this.background.send(MESSAGE.SESSION_NEW) }
     remove(session: Session) { return this.background.send(MESSAGE.SESSION_REMOVE, session.id) }
     rename(session: Session, name: string) { return this.background.send(MESSAGE.SESSION_RENAME, { id: session.id, name }) }
     switch(session: Session) { return this.background.send(MESSAGE.SESSION_SWITCH, session.id) }
