@@ -25,7 +25,7 @@ async function onSessionChange(id: number, storage: Session$Storage, tabsRemove:
         let tabsAdded = sessionNew.tabs.slice(0);
             tabs.forEach(value => tabsAdded.splice(tabsAdded.findIndex(value2 => value2.url == value.url), 1));
 
-        let tabsRemoved = tabsRemove ? tabs.slice(0) : [];
+        let tabsRemoved = tabs.slice(0);
             tabsNew.forEach(value => tabsRemoved.splice(tabsRemoved.findIndex(value2 => value2.url == value.url), 1));
 
         let tabsMoved = tabs.slice(0);
@@ -37,7 +37,7 @@ async function onSessionChange(id: number, storage: Session$Storage, tabsRemove:
             await new Promise((resolve, reject) => chrome.tabs.create({ url: tab.url, windowId: session.window }, (tab: chrome.tabs.Tab) => { tabs.push({ id: tab.id, url: tab.url }); resolve() }));
 
         // Remove new tabs
-        for (let tab of tabsRemoved)
+        for (let tab of (tabsRemove ? tabsRemoved : []))
             await new Promise((resolve, reject) => chrome.tabs.remove(tab.id, () => resolve()));
 
         // Move existing tabs
