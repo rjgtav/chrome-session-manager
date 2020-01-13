@@ -1,5 +1,8 @@
 # ChromeSessionManager
 
+## Logo
+The logo was created in collaboration with Guilherme Morgado, during a stream over at https://twitch.tv/rjgtav
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.1.2.
 
 ## Development server
