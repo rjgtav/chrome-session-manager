@@ -20,7 +20,7 @@ import {KEY_SESSIONS} from '../../background';
 // XTODO: mostrar indicador da sessao atual
 // XTODO: apagar/nao guardar as sessoes so com 1 tab
 // XTODO: melhorar o algoritmo que valida se ja tamos no limite de storage
-// TODO: atualizar para Angular 9
+// XTODO: atualizar para Angular 9
 // TODO: lidar com pinned tabs
 
 @Component({

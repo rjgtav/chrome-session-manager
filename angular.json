@@ -8,32 +8,25 @@
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss",
-          "skipTests": true,
-          "spec": false
+          "skipTests": true
         },
         "@schematics/angular:class": {
-          "skipTests": true,
-          "spec": false
+          "skipTests": true
         },
         "@schematics/angular:directive": {
-          "skipTests": true,
-          "spec": false
+          "skipTests": true
         },
         "@schematics/angular:guard": {
-          "skipTests": true,
-          "spec": false
+          "skipTests": true
         },
         "@schematics/angular:module": {
-          "skipTests": true,
-          "spec": false
+          "skipTests": true
         },
         "@schematics/angular:pipe": {
-          "skipTests": true,
-          "spec": false
+          "skipTests": true
         },
         "@schematics/angular:service": {
-          "skipTests": true,
-          "spec": false
+          "skipTests": true
         }
       },
       "root": "",
@@ -149,6 +142,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "chrome-session-manager"
+    }
+  },
+  "defaultProject": "chrome-session-manager",
+  "cli": {
+    "analytics": "0e696cbe-b010-47b5-b767-9fc6200fb5ec"
+  }
 }
