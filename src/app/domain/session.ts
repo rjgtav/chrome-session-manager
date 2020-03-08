@@ -19,7 +19,7 @@ export class Session {
 
     get isDirty() { return this.dirty && !this.isEmpty }
     get isEditing() { return this.$editing }
-    get isEmpty() { return this.tabs.length == 0 }
+    get isEmpty() { return this.tabs.length <= 1 }
     get isOpen() { return this.window != undefined }
 
     isEqual(urlsOther: string[]) {

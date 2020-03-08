@@ -3,9 +3,9 @@
     <button class="btn btn-primary" (click)="sessionNew()" title="New Session"><fa-icon [icon]="faPlus"></fa-icon></button>
 </div>
 
-<div class="alert alert-warning" *ngIf="showWarning">
-    Due to a chrome quota limitation, this extension is only guaranteed to work for up to <b>~30 sessions</b> and each session should only have <b>~120 tabs</b> at most.
-    Please make sure you're not going above those limits in order to prevent any syncing issue.
+<div class="alert alert-danger" *ngIf="storageFull">
+    You've surpassed your storage quota 😢<br/>
+    Please delete one of your sessions in order to prevent any syncing issues.
 </div>
 
 <div class="container mb-5 pb-3">
@@ -28,7 +28,8 @@
 </div>
 
 <ng-template let-id="id" #templateSession>
-    <div class="card mb-2 shadow-sm" *ngIf="sessionById(id) as session">
+    <div class="card mb-2 shadow-sm" *ngIf="sessionById(id) as session"
+         [ngClass]="{ 'border-primary': session.window == window }">
         <div class="card-body d-flex p-2">
             <div class="d-flex flex-grow-1" *ngIf="!session.isEditing">
                 <div class="d-flex flex-column flex-grow-1">
@@ -41,7 +42,7 @@
                     <app-session-list-button [icon]="faExternalLinkAlt" color="info" title="Open"
                                              (click)="sessionOpen(session)" *ngIf="!session.isOpen"></app-session-list-button>
                     <app-session-list-button [icon]="faTimes" color="primary" title="Close"
-                                             (click)="sessionClose(session)" *ngIf="session.isOpen && sessionsOpen.length > 1"></app-session-list-button>
+                                             (click)="sessionClose(session)" *ngIf="session.isOpen"></app-session-list-button>
                     <app-session-list-button [icon]="faRandom" color="info" title="Switch to"
                                              (click)="sessionSwitch(session)" *ngIf="!session.isOpen"></app-session-list-button>
                     <app-session-list-button [icon]="faTrashAlt" color="danger" title="Delete"

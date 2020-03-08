@@ -1,8 +1,8 @@
 import {Session, Session$Storage, Session$Tab} from './app/domain/session';
 import {Message, MESSAGE} from './app/domain/message';
 
-const KEY_ALARM: string = 'alarm';
-const KEY_SESSIONS: string = 'sessions';
+export const KEY_ALARM: string = 'alarm';
+export const KEY_SESSIONS: string = 'sessions';
 
 let onWindowCreatedTimeout: any;
 let ports: chrome.runtime.Port[] = [];
@@ -374,7 +374,7 @@ async function sessionSwitch(id: number) {
                 Session.values()
                     .filter(value => changes[KEY_SESSIONS].newValue.indexOf(value.id) == -1)
                     .forEach(value => value.remove());
-            else
+            else if (changes[key].newValue)
                 await onSessionChange(+key, JSON.parse(changes[key].newValue));
         }
     });
