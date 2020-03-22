@@ -65,7 +65,7 @@ export class SessionListComponent implements OnInit, OnDestroy {
         // Get current window
         chrome.windows.getCurrent((window) => {
             this.window = window.id;
-            this.changeDetector.markForCheck();
+            this.changeDetector.detectChanges();
         });
     }
 
@@ -111,11 +111,10 @@ export class SessionListComponent implements OnInit, OnDestroy {
         this.subscription = this.session.findAll().subscribe(async value => {
             this.sessionsClosed = value.filter(value => !value.isOpen);
             this.sessionsOpen = value.filter(value => value.isOpen);
-
             this.changeDetector.detectChanges();
 
             this.storageFull = await this.storageQuota(value) == false;
-            this.changeDetector.markForCheck();
+            this.changeDetector.detectChanges();
         });
     }
 

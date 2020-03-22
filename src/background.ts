@@ -69,7 +69,7 @@ async function onSessionGC() {
     console.log('onSessionGC');
     // Delete empty sessions
     let sessions = Session.values().filter(value => !value.isEmpty);
-    let sessionsEmpty = Session.values().filter(value => value.isEmpty);
+    let sessionsEmpty = Session.values().filter(value => value.isEmpty && !value.isOpen);
         sessionsEmpty.forEach(value => value.remove());
 
     await new Promise((resolve, reject) => chrome.storage.sync.remove(sessionsEmpty.map(value => value.id + ''), () => resolve()));
@@ -343,7 +343,6 @@ async function sessionSwitch(id: number) {
 
         console.log('Initialize complete!');
         console.log('Sessions:', Session.values());
-        chrome.storage.sync.getBytesInUse(['0'], (bytesInUse: number) => console.log('Bytes in use', bytesInUse));
         resolve();
     }));
 
