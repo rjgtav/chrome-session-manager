@@ -1,8 +1,6 @@
 import {Session, Session$Storage, Session$Tab} from './app/domain/session';
 import {Message, MESSAGE} from './app/domain/message';
-
-export const KEY_ALARM: string = 'alarm';
-export const KEY_SESSIONS: string = 'sessions';
+import {KEY_ALARM, KEY_SESSIONS} from './app/domain/constants';
 
 let onWindowCreatedTimeout: any;
 let ports: chrome.runtime.Port[] = [];

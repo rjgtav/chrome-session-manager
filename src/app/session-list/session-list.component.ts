@@ -15,7 +15,7 @@ import {
     faTrashAlt
 } from '@fortawesome/free-solid-svg-icons';
 import {MESSAGE, Message} from '../domain/message';
-import {KEY_SESSIONS} from '../../background';
+import {KEY_SESSIONS} from '../domain/constants';
 
 // XTODO: mostrar indicador da sessao atual
 // XTODO: apagar/nao guardar as sessoes so com 1 tab
@@ -65,7 +65,7 @@ export class SessionListComponent implements OnInit, OnDestroy {
         // Get current window
         chrome.windows.getCurrent((window) => {
             this.window = window.id;
-            this.changeDetector.detectChanges();
+            this.changeDetector.markForCheck();
         });
     }
 
@@ -114,7 +114,7 @@ export class SessionListComponent implements OnInit, OnDestroy {
             this.changeDetector.detectChanges();
 
             this.storageFull = await this.storageQuota(value) == false;
-            this.changeDetector.detectChanges();
+            this.changeDetector.markForCheck();
         });
     }
 

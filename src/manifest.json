@@ -1,6 +1,6 @@
 {
     "name": "Session Manager",
-    "version": "1.2.1",
+    "version": "1.2.2",
     "description": "A simple Session manager that syncs across your PCs",
     "manifest_version": 2,
     "background": {
